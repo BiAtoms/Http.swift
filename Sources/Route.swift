@@ -6,7 +6,7 @@
 //  Copyright © 2017 BiAtoms. All rights reserved.
 //
 
-public typealias RouteHandler = (Request) -> Response
+public typealias RouteHandler = (Request) throws -> Response
 open class Route {
     open let method: String
     open let path: String
