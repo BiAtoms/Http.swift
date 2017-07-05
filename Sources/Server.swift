@@ -15,6 +15,7 @@ open class Server {
     open var router = Router()
     open var socket: Socket!
     open var errorHandler: ErrorHandler.Type = ErrorHandler.self
+    open var middlewares: [Middleware] = []
     
     open func run(port: SocketSwift.Port = 8080, address: String? = nil) {
         DispatchQueue.init(label: "testinggsfsf").async { 
@@ -29,8 +30,8 @@ open class Server {
     open func handleConnection(_ client: Socket) {
         var request: Request!
         do {
-            request =  try RequestParser.parse(socket: client)
-            let response = try router.respond(to: request)
+            request = try RequestParser.parse(socket: client)
+            let response = try getResponse(request)
             try client.write(response)
         } catch {
             do {
@@ -40,6 +41,23 @@ open class Server {
                 print(error)
             }
         }
+    }
+    
+    open func getResponse(_ request: Request) throws -> Response {
+        var i = 0
+        
+        func next() throws -> RouteHandler? {
+            if i == middlewares.count {
+                return nil
+            }
+            let copied = i
+            i += 1
+            return { req in
+                return try self.middlewares[copied].handle(request: req, closure: try next() ?? self.router.getRoute(for: req).handler)
+            }
+        }
+        
+        return try next()?(request) ?? router.respond(to: request)
     }
     
     open func stop() {

@@ -21,6 +21,7 @@
 		9DDDF8751F0C159400C3D4A6 /* Url.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDDF86A1F0C159400C3D4A6 /* Url.swift */; };
 		9DDDF8771F0C44D100C3D4A6 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDDF8761F0C44D100C3D4A6 /* ErrorHandler.swift */; };
 		9DDDF8791F0C455C00C3D4A6 /* ServerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDDF8781F0C455C00C3D4A6 /* ServerError.swift */; };
+		9DF8836D1F0D2C9F0060C11F /* Middleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF8836C1F0D2C9F0060C11F /* Middleware.swift */; };
 		B45BD331C71B497A1D77F294 /* Pods_HttpSwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC48C3375D6FFB8BD32368AD /* Pods_HttpSwiftTests.framework */; };
 		D09C49846EC39EAF72119492 /* Pods_HttpSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3240C74D92CEDAE3FB8B1743 /* Pods_HttpSwift.framework */; };
 /* End PBXBuildFile section */
@@ -58,6 +59,7 @@
 		9DDDF86A1F0C159400C3D4A6 /* Url.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Url.swift; sourceTree = "<group>"; };
 		9DDDF8761F0C44D100C3D4A6 /* ErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		9DDDF8781F0C455C00C3D4A6 /* ServerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerError.swift; sourceTree = "<group>"; };
+		9DF8836C1F0D2C9F0060C11F /* Middleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Middleware.swift; sourceTree = "<group>"; };
 		DC48C3375D6FFB8BD32368AD /* Pods_HttpSwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HttpSwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -122,6 +124,7 @@
 				9DDDF8601F0C159400C3D4A6 /* Response.swift */,
 				9DDDF8661F0C159400C3D4A6 /* RequestParser.swift */,
 				9DDDF8631F0C159400C3D4A6 /* ResponseWriter.swift */,
+				9DF8836C1F0D2C9F0060C11F /* Middleware.swift */,
 				9DDDF8651F0C159400C3D4A6 /* Regex.swift */,
 				9DDDF86A1F0C159400C3D4A6 /* Url.swift */,
 				9DDDF8781F0C455C00C3D4A6 /* ServerError.swift */,
@@ -356,6 +359,7 @@
 				9DDDF86E1F0C159400C3D4A6 /* ResponseWriter.swift in Sources */,
 				9DDDF8751F0C159400C3D4A6 /* Url.swift in Sources */,
 				9DDDF8771F0C44D100C3D4A6 /* ErrorHandler.swift in Sources */,
+				9DF8836D1F0D2C9F0060C11F /* Middleware.swift in Sources */,
 				9DDDF8721F0C159400C3D4A6 /* Server.swift in Sources */,
 				9DDDF8701F0C159400C3D4A6 /* Regex.swift in Sources */,
 			);

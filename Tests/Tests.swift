@@ -10,6 +10,7 @@ import XCTest
 import SocketSwift
 import Alamofire
 @testable import HttpSwift
+typealias Request = HttpSwift.Request
 
 
 class HttpSwiftTests: XCTestCase {
@@ -94,7 +95,7 @@ class HttpSwiftTests: XCTestCase {
     }
     
     class MyErrorHandler: ErrorHandler {
-        override class func onError(request: HttpSwift.Request?, error: Error) -> Response? {
+        override class func onError(request: Request?, error: Error) -> Response? {
             if let error = error as? ServerError {
                 if error == .httpRouteNotFound {
                     return Response(.ok, body: "Error is handled")
@@ -105,6 +106,85 @@ class HttpSwiftTests: XCTestCase {
         }
     }
     
+    func testMiddleware() {
+        server.middlewares = [Req1(), Req2(), Req3(), Res1(), Res2(), Res3()]
+        let url = "/testMiddleware"
+        server.get(url) { request in
+            XCTAssertTrue(request.headers.contains(["middleware": "123"]))
+            self.server.middlewares = []
+            return .ok("passed")
+        }
+        
+        let ex = expectation(description: "ext")
+        client.request(url).responseString { r in
+            XCTAssert(r.response!.contains(["middleware": "CBA"]))
+            ex.fulfill()
+        }
+        
+        waitForExpectations()
+        
+        //changing order
+        server.middlewares = [ Res1(), Req1(), Req2(), Req3(), Res2(), Res3()]
+        let url2 = "/testMiddleware2"
+        server.get(url2) { request in
+            XCTAssertTrue(request.headers.contains(["middleware": "123"]))
+            self.server.middlewares = []
+            return .ok("passed")
+        }
+        
+        let ex2 = expectation(description: "ext")
+        client.request(url2).responseString { r in
+            XCTAssert(r.response!.contains(["middleware": "CBA"]))
+            ex2.fulfill()
+        }
+        
+        waitForExpectations()
+    }
+    
+    class Req1: Middleware {
+        override func handle(request: Request, closure: (Request) throws -> Response) throws -> Response {
+            request.headers["middleware"] = (request.headers["middleware"] ?? "") + "1"
+            return try closure(request)
+        }
+    }
+    
+    class Req2: Middleware {
+        override func handle(request: Request, closure: (Request) throws -> Response) throws -> Response {
+            request.headers["middleware"] = (request.headers["middleware"] ?? "") + "2"
+            return try closure(request)
+        }
+    }
+    
+    class Req3: Middleware {
+        override func handle(request: Request, closure: (Request) throws -> Response) throws -> Response {
+            request.headers["middleware"] = (request.headers["middleware"] ?? "") + "3"
+            return try closure(request)
+        }
+    }
+    
+    class Res1: Middleware {
+        override func handle(request: Request, closure: (Request) throws -> Response) throws -> Response {
+            let response = try closure(request)
+            response.headers["middleware"] = (response.headers["middleware"] ?? "") + "A"
+            return response
+        }
+    }
+    
+    class Res2: Middleware {
+        override func handle(request: Request, closure: (Request) throws -> Response) throws -> Response {
+            let response = try closure(request)
+            response.headers["middleware"] = (response.headers["middleware"] ?? "") + "B"
+            return response
+        }
+    }
+    
+    class Res3: Middleware {
+        override func handle(request: Request, closure: (Request) throws -> Response) throws -> Response {
+            let response = try closure(request)
+            response.headers["middleware"] = (response.headers["middleware"] ?? "") + "C"
+            return response
+        }
+    }
 }
 private extension SessionManager {
     func request(_ url: String,
