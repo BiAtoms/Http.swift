@@ -69,7 +69,7 @@ class HttpSwiftTests: XCTestCase {
                         ex.fulfill()
         }
         
-        waitForExpectations(timeout: 1)
+        waitForExpectations()
     }
     
     func testResponseExceptions() {
@@ -78,10 +78,32 @@ class HttpSwiftTests: XCTestCase {
             XCTAssertEqual(r.response?.statusCode, 404)
             ex.fulfill()
         }
-        waitForExpectations(timeout: 1)
+        waitForExpectations()
     }
     
+    func testErrorHandler() {
+        let ex = expectation(description: "httpRouteNotDefined")
+        server.errorHandler = MyErrorHandler.self
+        client.request("/aNonDefinedRoute").responseString { r in
+            XCTAssertEqual(r.response?.statusCode, 200)
+            XCTAssertEqual(r.value, "Error is handled")
+            self.server.errorHandler = ErrorHandler.self
+            ex.fulfill()
+        }
+        waitForExpectations()
+    }
     
+    class MyErrorHandler: ErrorHandler {
+        override class func onError(request: HttpSwift.Request?, error: Error) -> Response? {
+            if let error = error as? ServerError {
+                if error == .httpRouteNotFound {
+                    return Response(.ok, body: "Error is handled")
+                }
+            }
+            
+            return super.onError(request: request, error: error)
+        }
+    }
     
 }
 private extension SessionManager {
@@ -133,5 +155,11 @@ extension HTTPURLResponse {
             a[$1.key as! String] = $1.value as? String
             return a
             }.contains(headers)
+    }
+}
+
+extension XCTestCase {
+    func waitForExpectations() {
+        waitForExpectations(timeout: 1)
     }
 }
