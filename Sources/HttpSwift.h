@@ -6,7 +6,7 @@
 //  Copyright © 2017 BiAtoms. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for HttpSwift.
 FOUNDATION_EXPORT double HttpSwiftVersionNumber;

@@ -8,4 +8,24 @@
 
 public enum ServerError: Error {
     case httpRouteNotFound
+    case emptyLine
+}
+
+import SocketSwift
+
+extension Socket {
+    open func readLine() throws -> String {
+        var line: String = "" //yep it is StringBuilder
+        let CR = Byte(13), LF = Byte(10)
+        while let byte = try? read(), byte != LF {
+            if byte != CR {
+                line.append(Character(UnicodeScalar(byte)))
+            }
+        }
+        if line.isEmpty {
+            throw ServerError.emptyLine
+        }
+        
+        return line
+    }
 }
