@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9DDDF8501F0C14CF00C3D4A6 /* HttpSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDDF8461F0C14CF00C3D4A6 /* HttpSwift.framework */; };
-		9DDDF8551F0C14CF00C3D4A6 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDDF8541F0C14CF00C3D4A6 /* Tests.swift */; };
+		9DDDF8551F0C14CF00C3D4A6 /* HttpSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDDF8541F0C14CF00C3D4A6 /* HttpSwiftTests.swift */; };
 		9DDDF8571F0C14CF00C3D4A6 /* HttpSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DDDF8491F0C14CF00C3D4A6 /* HttpSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9DDDF86B1F0C159400C3D4A6 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDDF8601F0C159400C3D4A6 /* Response.swift */; };
 		9DDDF86D1F0C159400C3D4A6 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDDF8621F0C159400C3D4A6 /* Router.swift */; };
@@ -46,7 +46,7 @@
 		9DDDF8491F0C14CF00C3D4A6 /* HttpSwift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HttpSwift.h; sourceTree = "<group>"; };
 		9DDDF84A1F0C14CF00C3D4A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DDDF84F1F0C14CF00C3D4A6 /* HttpSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HttpSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9DDDF8541F0C14CF00C3D4A6 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		9DDDF8541F0C14CF00C3D4A6 /* HttpSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HttpSwiftTests.swift; path = Tests/HttpSwiftTests/HttpSwiftTests.swift; sourceTree = "<group>"; };
 		9DDDF8561F0C14CF00C3D4A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DDDF8601F0C159400C3D4A6 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		9DDDF8621F0C159400C3D4A6 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
@@ -93,11 +93,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9D05A0D21F14ECF500E2956C /* HttpSwiftTests */ = {
+			isa = PBXGroup;
+			children = (
+				9DDDF8541F0C14CF00C3D4A6 /* HttpSwiftTests.swift */,
+			);
+			name = HttpSwiftTests;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		9DDDF83C1F0C14CF00C3D4A6 = {
 			isa = PBXGroup;
 			children = (
 				9DDDF8481F0C14CF00C3D4A6 /* Sources */,
-				9DDDF8531F0C14CF00C3D4A6 /* Tests */,
 				9DDDF8471F0C14CF00C3D4A6 /* Products */,
 				EFEB429D99E81456ABE9CF23 /* Pods */,
 				1C76C7CCBD324537B58CCC04 /* Frameworks */,
@@ -130,6 +138,7 @@
 				9DDDF8781F0C455C00C3D4A6 /* ServerError.swift */,
 				9DDDF8491F0C14CF00C3D4A6 /* HttpSwift.h */,
 				9DDDF84A1F0C14CF00C3D4A6 /* Info.plist */,
+				9DDDF8531F0C14CF00C3D4A6 /* Tests */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -137,10 +146,11 @@
 		9DDDF8531F0C14CF00C3D4A6 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				9DDDF8541F0C14CF00C3D4A6 /* Tests.swift */,
+				9D05A0D21F14ECF500E2956C /* HttpSwiftTests */,
 				9DDDF8561F0C14CF00C3D4A6 /* Info.plist */,
 			);
-			path = Tests;
+			name = Tests;
+			path = ../Tests;
 			sourceTree = "<group>";
 		};
 		EFEB429D99E81456ABE9CF23 /* Pods */ = {
@@ -369,7 +379,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DDDF8551F0C14CF00C3D4A6 /* Tests.swift in Sources */,
+				9DDDF8551F0C14CF00C3D4A6 /* HttpSwiftTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

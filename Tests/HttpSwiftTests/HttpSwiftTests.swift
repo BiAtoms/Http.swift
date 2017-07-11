@@ -185,6 +185,14 @@ class HttpSwiftTests: XCTestCase {
             return response
         }
     }
+    
+    static var allTests = [
+        ("testRoute", testRoute),
+        ("testRequestAndResponse", testRequestAndResponse),
+        ("testResponseExceptions", testResponseExceptions),
+        ("testErrorHandler", testErrorHandler),
+        ("testMiddleware", testMiddleware),
+        ]
 }
 private extension SessionManager {
     func request(_ url: String,
