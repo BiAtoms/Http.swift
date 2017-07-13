@@ -18,12 +18,20 @@ open class Regex {
         let regex = try NSRegularExpression(pattern: pattern, options: [])
         let results = regex.matches(in: string, options: [], range: NSRange(location: 0, length: string.characters.count))
         var matches = [String]()
-        
+        let string = NSString(string: string) //for NSString.substring
         results.forEach { result in
             (1..<result.numberOfRanges).forEach {
-                matches.append((string as NSString).substring(with: result.rangeAt($0)))
+                matches.append(string.substring(with: result.rangeAt($0)))
             }
         }
         return matches
     }
 }
+
+#if os(Linux)
+    internal extension TextCheckingResult {
+        internal func rangeAt(_ idx: Int) -> NSRange {
+            return self.range(at: idx)
+        }
+    }
+#endif

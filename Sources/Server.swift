@@ -6,6 +6,7 @@
 //  Copyright © 2017 BiAtoms. All rights reserved.
 //
 
+import Dispatch
 import Foundation
 import SocketSwift
 
