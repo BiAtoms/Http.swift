@@ -10,16 +10,15 @@ import Dispatch
 import Foundation
 import SocketSwift
 
-//TODO: Write exception handler
-//TODO: Write middleware
 open class Server {
+    open let queue = DispatchQueue(label: "com.biatoms.server-swift." + UUID().uuidString)
     open var router = Router()
     open var socket: Socket!
     open var errorHandler: ErrorHandler.Type = ErrorHandler.self
     open var middlewares: [Middleware] = []
     
     open func run(port: SocketSwift.Port = 8080, address: String? = nil) {
-        DispatchQueue.init(label: "testinggsfsf").async { 
+        queue.async {
             self.socket = try! Socket.tcpListening(port: port, address: address)
             while let client = try? self.socket.accept() {
                 self.handleConnection(client)
