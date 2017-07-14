@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '8.0'
+platform :ios, '8.0' #links Foundation.framework for targets
 
 target 'HttpSwift' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
@@ -10,7 +10,7 @@ target 'HttpSwift' do
     
   target 'HttpSwiftTests' do
     inherit! :search_paths
-    pod 'Alamofire', '~> 4.4'
+    pod 'Request.swift', '~> 1.0'
   end
 end
 

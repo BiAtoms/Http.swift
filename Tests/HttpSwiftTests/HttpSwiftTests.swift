@@ -8,9 +8,11 @@
 
 import XCTest
 import SocketSwift
-import Alamofire
+import RequestSwift
+
 @testable import HttpSwift
 typealias Request = HttpSwift.Request
+typealias Response = HttpSwift.Response
 
 
 class HttpSwiftTests: XCTestCase {
@@ -21,14 +23,14 @@ class HttpSwiftTests: XCTestCase {
             server.run()
             return server
         }()
-        static let client = SessionManager.default
+        static let client = Client(baseUrl: "http://localhost:8080")
     }
     
     var port = Port(8080)
     var server: Server {
         return a.server
     }
-    var client: SessionManager {
+    var client: Client {
         return a.client
     }
     
@@ -75,8 +77,8 @@ class HttpSwiftTests: XCTestCase {
     
     func testResponseExceptions() {
         let ex = expectation(description: "httpRouteNotDefined")
-        client.request("/aNonDefinedRoute").response { r in
-            XCTAssertEqual(r.response?.statusCode, 404)
+        client.request("/aNonDefinedRoute").response { response, _ in
+            XCTAssertEqual(response?.statusCode, 404)
             ex.fulfill()
         }
         waitForExpectations()
@@ -194,35 +196,12 @@ class HttpSwiftTests: XCTestCase {
         ("testMiddleware", testMiddleware),
         ]
 }
-private extension SessionManager {
-    func request(_ url: String,
-                 method: HTTPMethod = .get,
-                 parameters: Parameters? = nil,
-                 encoding: ParameterEncoding = URLEncoding.default,
-                 headers: HTTPHeaders? = nil)
-        -> DataRequest
-    {
-        let baseUrl = "http://localhost:8080"
-        let url: URLConvertible = baseUrl + url
-        return self.request(url,
-                            method: method,
-                            parameters: parameters,
-                            encoding: encoding,
-                            headers: headers)
-    }
-}
-
 extension String: ParameterEncoding {
-    
-    public func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
-        var request = try urlRequest.asURLRequest()
-        request = try URLEncoding.queryString.encode(request, with: parameters)
-        request.httpBody = data(using: .utf8, allowLossyConversion: false)
-        return request
+    public func encode(_ request: RequestSwift.Request, with parameters: Parameters?) {
+        URLEncoding.queryString.encode(request, with: parameters)
+        request.body = self.bytes
     }
-    
 }
-
 
 extension Dictionary where Value: Equatable {
     func contains(_ other: Dictionary<Key, Value>) -> Bool {
@@ -236,11 +215,11 @@ extension Dictionary where Value: Equatable {
 }
 
 
-extension HTTPURLResponse {
+extension RequestSwift.Response {
     func contains(_ headers: [String:String]) -> Bool {
-        return self.allHeaderFields.reduce([String:String]()) {
+        return self.headers.reduce([String:String]()) {
             var a = $0
-            a[$1.key as! String] = $1.value as? String
+            a[$1.key] = $1.value
             return a
             }.contains(headers)
     }
@@ -249,5 +228,15 @@ extension HTTPURLResponse {
 extension XCTestCase {
     func waitForExpectations() {
         waitForExpectations(timeout: 1)
+    }
+}
+
+extension Requester {
+    typealias ResponseString = (value: String, response: RequestSwift.Response?, error: Error?)
+    func responseString(_ handlr: @escaping ( (ResponseString) -> Void)) {
+        let h: ResponseHandler = { (res: RequestSwift.Response?, error: Error?) in
+            handlr((String(cString: res?.body ?? []), res, error))
+        }
+        self.response(h)
     }
 }
