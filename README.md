@@ -1,3 +1,4 @@
+[![Platform Linux](https://img.shields.io/badge/platform-Linux-green.svg)](#)
 [![Platform](https://img.shields.io/cocoapods/p/Http.swift.svg?style=flat)](https://github.com/BiAtoms/Http.swift)
 [![Cocoapods Compatible](https://img.shields.io/cocoapods/v/Http.swift.svg)](https://cocoapods.org/pods/Http.swift)
 
@@ -5,11 +6,21 @@
 
 A tiny HTTP server engine written in swift.
 
-## Requirements
+## Features
+* Error handling
+* Global middlewares
+* Request parameters
+* Works in Linux, iOS, macOS and tvOS
 
-- iOS 8.0+
-- Xcode 8.0+
-- Swift 3.0+
+```swift
+let server = Server()
+server.get("/hello/{id}") { request in
+    print(request.queryParams["state"])
+    return .ok(request.routeParams["id"]!) 
+}
+
+server.run() //go to http://localhost:8080/hello/1?state=active in the browser
+```
 
 ## Installation
 
@@ -26,7 +37,7 @@ To integrate Http.swift into your Xcode project using CocoaPods, specify it in y
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
 target '<Your Target Name>' do
-    pod 'Http.swift' ~> '1.0'
+    pod 'Http.swift' ~> '1.2'
 end
 ```
 
@@ -34,6 +45,22 @@ Then, run the following command:
 
 ```bash
 $ pod install
+```
+### Swift Package Manager
+
+The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler. It is in early development, but Http.swift does support its use on supported platforms. 
+
+Once you have your Swift package set up, adding Http.swift as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
+
+```swift
+import PackageDescription
+
+let package = Package(
+    name: "MyServer",
+    dependencies: [
+        .Package(url: "https://github.com/BiAtoms/Http.swift.git", majorVersion: 1)
+    ]
+)
 ```
 
 ## Authors
