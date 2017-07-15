@@ -235,7 +235,8 @@ extension Requester {
     typealias ResponseString = (value: String, response: RequestSwift.Response?, error: Error?)
     func responseString(_ handlr: @escaping ( (ResponseString) -> Void)) {
         let h: ResponseHandler = { (res: RequestSwift.Response?, error: Error?) in
-            handlr((String(cString: res?.body ?? []), res, error))
+            let bytes = res?.body ?? [UInt8]()
+            handlr((String(data: Data(bytes: bytes, count: bytes.count), encoding: .utf8)!, res, error))
         }
         self.response(h)
     }
