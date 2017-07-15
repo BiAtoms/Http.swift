@@ -25,7 +25,7 @@ post_install do |installer|
 
       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '8.0'
       config.build_settings['TVOS_DEPLOYMENT_TARGET'] = '9.0'
-      config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '10.10'
+      config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '10.9'
     end
   end
 
