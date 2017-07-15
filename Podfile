@@ -10,7 +10,7 @@ target 'HttpSwift' do
     
   target 'HttpSwiftTests' do
     inherit! :search_paths
-    pod 'Request.swift', '~> 1.0'
+    pod 'Request.swift', '~> 1.1'
   end
 end
 
