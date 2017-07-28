@@ -67,23 +67,11 @@ open class Server {
     deinit {
         stop()
     }
-}
-
-
-extension Server {
-    public func get(_ path: String, handler: @escaping RouteHandler) {
-        custom("GET", path, handler: handler)
-    }
-    
-    public func post(_ path: String, handler: @escaping RouteHandler) {
-        custom("POST", path, handler: handler)
-    }
     
     public func custom(_ method: String, _ path: String, handler: @escaping RouteHandler) {
         router.routes.append(Route(method: method, path: path, handler: handler))
     }
 }
-
 
 private extension Socket {
      func write(_ response: Response) throws {

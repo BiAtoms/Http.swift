@@ -22,6 +22,7 @@
 		9DDDF8751F0C159400C3D4A6 /* Url.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDDF86A1F0C159400C3D4A6 /* Url.swift */; };
 		9DDDF8771F0C44D100C3D4A6 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDDF8761F0C44D100C3D4A6 /* ErrorHandler.swift */; };
 		9DDDF8791F0C455C00C3D4A6 /* ServerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDDF8781F0C455C00C3D4A6 /* ServerError.swift */; };
+		9DED30E41F2BA2D1004A950C /* Server+Methods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DED30E31F2BA2D1004A950C /* Server+Methods.swift */; };
 		9DF8836D1F0D2C9F0060C11F /* Middleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF8836C1F0D2C9F0060C11F /* Middleware.swift */; };
 		BFAF70F808AE034238DAE4D0 /* Pods_HttpSwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7560EB59ED2A5BDB17F14F2 /* Pods_HttpSwiftTests.framework */; };
 /* End PBXBuildFile section */
@@ -56,6 +57,7 @@
 		9DDDF86A1F0C159400C3D4A6 /* Url.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Url.swift; sourceTree = "<group>"; };
 		9DDDF8761F0C44D100C3D4A6 /* ErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		9DDDF8781F0C455C00C3D4A6 /* ServerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerError.swift; sourceTree = "<group>"; };
+		9DED30E31F2BA2D1004A950C /* Server+Methods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Server+Methods.swift"; sourceTree = "<group>"; };
 		9DF8836C1F0D2C9F0060C11F /* Middleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Middleware.swift; sourceTree = "<group>"; };
 		B12FEB8F2BCDCB28A4784E8C /* Pods-HttpSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HttpSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-HttpSwift/Pods-HttpSwift.release.xcconfig"; sourceTree = "<group>"; };
 		BA7750543CF7C03E03B5F6EB /* Pods_HttpSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HttpSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,6 +152,7 @@
 				9DDDF8491F0C14CF00C3D4A6 /* HttpSwift.h */,
 				9DDDF84A1F0C14CF00C3D4A6 /* Info.plist */,
 				9DDDF8531F0C14CF00C3D4A6 /* Tests */,
+				9DED30E31F2BA2D1004A950C /* Server+Methods.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				9DDDF8711F0C159400C3D4A6 /* RequestParser.swift in Sources */,
 				9DDDF86F1F0C159400C3D4A6 /* Request.swift in Sources */,
 				9DDDF8791F0C455C00C3D4A6 /* ServerError.swift in Sources */,
+				9DED30E41F2BA2D1004A950C /* Server+Methods.swift in Sources */,
 				9DDDF86B1F0C159400C3D4A6 /* Response.swift in Sources */,
 				9DDDF86E1F0C159400C3D4A6 /* ResponseWriter.swift in Sources */,
 				9DDDF8751F0C159400C3D4A6 /* Url.swift in Sources */,
