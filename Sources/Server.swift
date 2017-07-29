@@ -10,12 +10,14 @@ import Dispatch
 import Foundation
 import SocketSwift
 
+
+public typealias MiddlewareHandler = (_ request: Request, _ closure: RouteHandler) throws -> Response
 open class Server {
     open let queue = DispatchQueue(label: "com.biatoms.server-swift." + UUID().uuidString)
     open var router = Router()
     open var socket: Socket!
     open var errorHandler: ErrorHandler.Type = ErrorHandler.self
-    open var middlewares: [Middleware] = []
+    open var middlewares: [MiddlewareHandler] = []
     
     open func run(port: SocketSwift.Port = 8080, address: String? = nil) {
         queue.async {
@@ -53,7 +55,7 @@ open class Server {
             let copied = i
             i += 1
             return { req in
-                return try self.middlewares[copied].handle(request: req, closure: try next() ?? self.router.getRoute(for: req).handler)
+                return try self.middlewares[copied](req, try next() ?? self.router.getRoute(for: req).handler)
             }
         }
         

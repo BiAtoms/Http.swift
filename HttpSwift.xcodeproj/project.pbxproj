@@ -25,7 +25,6 @@
 		9DE26CAC1F2C9992007C5541 /* StaticServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE26CAB1F2C9992007C5541 /* StaticServer.swift */; };
 		9DED30E41F2BA2D1004A950C /* Server+Methods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DED30E31F2BA2D1004A950C /* Server+Methods.swift */; };
 		9DED30E61F2BAAEC004A950C /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DED30E51F2BAAEC004A950C /* File.swift */; };
-		9DF8836D1F0D2C9F0060C11F /* Middleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF8836C1F0D2C9F0060C11F /* Middleware.swift */; };
 		BFAF70F808AE034238DAE4D0 /* Pods_HttpSwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7560EB59ED2A5BDB17F14F2 /* Pods_HttpSwiftTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,7 +61,6 @@
 		9DE26CAB1F2C9992007C5541 /* StaticServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticServer.swift; sourceTree = "<group>"; };
 		9DED30E31F2BA2D1004A950C /* Server+Methods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Server+Methods.swift"; sourceTree = "<group>"; };
 		9DED30E51F2BAAEC004A950C /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
-		9DF8836C1F0D2C9F0060C11F /* Middleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Middleware.swift; sourceTree = "<group>"; };
 		B12FEB8F2BCDCB28A4784E8C /* Pods-HttpSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HttpSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-HttpSwift/Pods-HttpSwift.release.xcconfig"; sourceTree = "<group>"; };
 		BA7750543CF7C03E03B5F6EB /* Pods_HttpSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HttpSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7560EB59ED2A5BDB17F14F2 /* Pods_HttpSwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HttpSwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,7 +148,6 @@
 				9DDDF8601F0C159400C3D4A6 /* Response.swift */,
 				9DDDF8661F0C159400C3D4A6 /* RequestParser.swift */,
 				9DDDF8631F0C159400C3D4A6 /* ResponseWriter.swift */,
-				9DF8836C1F0D2C9F0060C11F /* Middleware.swift */,
 				9DDDF8651F0C159400C3D4A6 /* Regex.swift */,
 				9DDDF86A1F0C159400C3D4A6 /* Url.swift */,
 				9DDDF8781F0C455C00C3D4A6 /* ServerError.swift */,
@@ -381,7 +378,6 @@
 				9DED30E61F2BAAEC004A950C /* File.swift in Sources */,
 				9DE26CAC1F2C9992007C5541 /* StaticServer.swift in Sources */,
 				9DDDF8771F0C44D100C3D4A6 /* ErrorHandler.swift in Sources */,
-				9DF8836D1F0D2C9F0060C11F /* Middleware.swift in Sources */,
 				9DDDF8721F0C159400C3D4A6 /* Server.swift in Sources */,
 				9DDDF8701F0C159400C3D4A6 /* Regex.swift in Sources */,
 			);
