@@ -21,6 +21,48 @@ class StaticServer {
         let path = directory.expandingTildeInPath.appendingPathComponent(path)
         return try serveFile(at: path)
     }
+    
+    static func fileBrowser(in directory: String, path subpath: String) throws -> Response {
+        let path = directory.expandingTildeInPath.appendingPathComponent(subpath)
+        if let contents = try? FileManager.default.contentsOfDirectory(atPath: path) {
+            return renderBrowser(for: subpath, content: contents)
+        }
+        return try serveFile(at: path)
+    }
+    
+    static func renderBrowser(for path: String, content: [String]) -> Response {
+        func wrap(_ tag: String, newLine: Bool = true, attrs: [String: String] = [:], _ content: () -> String) -> String {
+            return "<\(tag)\(attrs.reduce("") { $0 + " \($1.key)=\"\($1.value)\"" })>\(newLine ? "\n" : "")\(content())</\(tag)>\n"
+        }
+        
+        let title = "Index Of: \(path)"
+        let body = "<!DOCTYPE html>\n" +
+            wrap("html") {
+                wrap("head") {
+                    wrap("title", newLine: false) { title }
+                    }
+                    + wrap("body") {
+                        wrap("h1") { title }
+                            + wrap("table") {
+                                wrap("tbody") {
+                                    content.reduce("") { r, name in
+                                        r + wrap("tr") {
+                                            wrap("td") {
+                                                wrap("a", newLine: false, attrs: ["href": path.appendingPathComponent(name)]) { name }
+                                            }
+                                        
+                                    }
+                                }
+                            }
+                        }
+                        
+                }
+        }
+        
+        
+        return .ok(body)
+    }
+    
 }
 
 

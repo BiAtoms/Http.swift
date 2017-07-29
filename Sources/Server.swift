@@ -77,6 +77,12 @@ open class Server {
             return try StaticServer.serveFile(in: directory, path: $0.routeParams["path"]!)
         }
     }
+    
+    public func fileBrowser(in directory: String) {
+        self.get("{path}") {
+            return try StaticServer.fileBrowser(in: directory, path: $0.routeParams["path"]!)
+        }
+    }
 }
 
 private extension Socket {
