@@ -35,3 +35,10 @@ open class File {
         return []
     }
 }
+#if os(Linux)
+    private extension ObjCBool {
+        var boolValue: Bool {
+            return self
+        }
+    }
+#endif
