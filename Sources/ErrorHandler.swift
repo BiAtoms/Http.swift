@@ -7,6 +7,7 @@
 //
 
 open class ErrorHandler {
+    public init() { }
     open class func onError(request: Request?, error: Error) -> Response? {
         if let error = error as? ServerError {
             if error == .httpRouteNotFound {

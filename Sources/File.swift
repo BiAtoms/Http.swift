@@ -9,22 +9,22 @@
 import Foundation
 
 open class File {
-    var path: String
+    open var path: String
     
-    init(path: String) {
+    public init(path: String) {
         self.path = path
     }
     
-    var exists: Bool {
+    open var exists: Bool {
         var isDir: ObjCBool = false
         return FileManager.default.fileExists(atPath: path, isDirectory: &isDir) && !isDir.boolValue
     }
     
-    var `extension`: String {
+    open var `extension`: String {
         return NSString(string: path).pathExtension
     }
     
-    var bytes: [Byte] {
+    open var bytes: [Byte] {
         if exists {
             let data = NSData(contentsOfFile: path)!
             let b = UnsafePointer<Byte>(OpaquePointer(data.bytes))

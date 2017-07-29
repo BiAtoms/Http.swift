@@ -19,6 +19,8 @@ open class Server {
     open var errorHandler: ErrorHandler.Type = ErrorHandler.self
     open var middlewares: [MiddlewareHandler] = []
     
+    public init() {}
+    
     open func run(port: SocketSwift.Port = 8080, address: String? = nil) {
         queue.async {
             self.socket = try! Socket.tcpListening(port: port, address: address)

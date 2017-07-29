@@ -8,8 +8,8 @@
 
 import Foundation
 
-class StaticServer {
-    static func serveFile(at path: String) throws -> Response {
+open class StaticServer {
+    open static func serveFile(at path: String) throws -> Response {
         let file = File(path: path)
         if file.exists {
             return Response(.ok, body: file.bytes)
@@ -17,12 +17,12 @@ class StaticServer {
         throw ServerError.httpRouteNotFound
     }
     
-    static func serveFile(in directory: String, path: String) throws -> Response {
+    open static func serveFile(in directory: String, path: String) throws -> Response {
         let path = directory.expandingTildeInPath.appendingPathComponent(path)
         return try serveFile(at: path)
     }
     
-    static func fileBrowser(in directory: String, path subpath: String) throws -> Response {
+    open static func fileBrowser(in directory: String, path subpath: String) throws -> Response {
         let path = directory.expandingTildeInPath.appendingPathComponent(subpath)
         if let contents = try? FileManager.default.contentsOfDirectory(atPath: path) {
             return renderBrowser(for: subpath, content: contents)
@@ -30,7 +30,7 @@ class StaticServer {
         return try serveFile(at: path)
     }
     
-    static func renderBrowser(for path: String, content: [String]) -> Response {
+    open static func renderBrowser(for path: String, content: [String]) -> Response {
         func wrap(_ tag: String, newLine: Bool = true, attrs: [String: String] = [:], _ content: () -> String) -> String {
             return "<\(tag)\(attrs.reduce("") { $0 + " \($1.key)=\"\($1.value)\"" })>\(newLine ? "\n" : "")\(content())</\(tag)>\n"
         }

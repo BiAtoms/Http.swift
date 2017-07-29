@@ -11,6 +11,8 @@ import Foundation
 open class Router {
     open var routes = [Route]()
     
+    public init() { }
+    
     open func respond(to request: Request) throws -> Response {
         return try getRoute(for: request).getResponse(request)
     }
