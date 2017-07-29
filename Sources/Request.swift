@@ -51,7 +51,7 @@ open class Request {
                 return false
             }            
             zip(route.paramNames, params).forEach {
-                routeParams[$0] = $1
+                routeParams[$0] = Url.unescape($1)
             }
             
             return true

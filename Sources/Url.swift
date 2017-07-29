@@ -7,10 +7,15 @@
 //
 
 open class Url {
-    open class func decode(_ url: String) -> ParamDictionary {
+    
+    open class func unescape(_ url: String) -> String {
         var url = url.replacingOccurrences(of: "+", with: " ")
         if let r = url.removingPercentEncoding { url = r }
-        
+        return url
+    }
+    
+    open class func decode(_ url: String) -> ParamDictionary {
+        let url = unescape(url)
         var params = ParamDictionary()
         let keyValues = url.split("&")
         keyValues.forEach { keyValue in
