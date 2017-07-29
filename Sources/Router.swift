@@ -12,7 +12,7 @@ open class Router {
     open var routes = [Route]()
     
     open func respond(to request: Request) throws -> Response {
-        return try getRoute(for: request).handler(request)
+        return try getRoute(for: request).getResponse(request)
     }
     
     open func getRoute(for request: Request) throws -> Route {

@@ -7,39 +7,48 @@
 //
 
 extension Server {
-    public func get(_ path: String, handler: @escaping RouteHandler) {
-        custom("GET", path, handler: handler)
+    @discardableResult
+    public func get(_ path: String, handler: @escaping RouteHandler) -> Route {
+        return custom("GET", path, handler: handler)
     }
     
-    public func post(_ path: String, handler: @escaping RouteHandler) {
-        custom("POST", path, handler: handler)
+    @discardableResult
+    public func post(_ path: String, handler: @escaping RouteHandler) -> Route {
+        return custom("POST", path, handler: handler)
     }
     
-    public func head(_ path: String, handler: @escaping RouteHandler) {
-        custom("HEAD", path, handler: handler)
+    @discardableResult
+    public func head(_ path: String, handler: @escaping RouteHandler) -> Route {
+        return custom("HEAD", path, handler: handler)
     }
     
-    public func put(_ path: String, handler: @escaping RouteHandler) {
-        custom("PUT", path, handler: handler)
+    @discardableResult
+    public func put(_ path: String, handler: @escaping RouteHandler) -> Route {
+        return custom("PUT", path, handler: handler)
     }
     
-    public func patch(_ path: String, handler: @escaping RouteHandler) {
-        custom("PATCH", path, handler: handler)
+    @discardableResult
+    public func patch(_ path: String, handler: @escaping RouteHandler) -> Route {
+        return custom("PATCH", path, handler: handler)
     }
     
-    public func delete(_ path: String, handler: @escaping RouteHandler) {
-        custom("DELETE", path, handler: handler)
+    @discardableResult
+    public func delete(_ path: String, handler: @escaping RouteHandler) -> Route {
+        return custom("DELETE", path, handler: handler)
     }
     
-    public func trace(_ path: String, handler: @escaping RouteHandler) {
-        custom("TRACE", path, handler: handler)
+    @discardableResult
+    public func trace(_ path: String, handler: @escaping RouteHandler) -> Route {
+        return custom("TRACE", path, handler: handler)
     }
     
-    public func connect(_ path: String, handler: @escaping RouteHandler) {
-        custom("CONNECT", path, handler: handler)
+    @discardableResult
+    public func connect(_ path: String, handler: @escaping RouteHandler) -> Route {
+        return custom("CONNECT", path, handler: handler)
     }
     
-    public func options(_ path: String, handler: @escaping RouteHandler) {
-        custom("OPTIONS", path, handler: handler)
+    @discardableResult
+    public func options(_ path: String, handler: @escaping RouteHandler) -> Route {
+        return custom("OPTIONS", path, handler: handler)
     }
 }

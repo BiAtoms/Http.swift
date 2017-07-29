@@ -46,20 +46,8 @@ open class Server {
     }
     
     open func getResponse(_ request: Request) throws -> Response {
-        var i = 0
-        
-        func next() throws -> RouteHandler? {
-            if i == middlewares.count {
-                return nil
-            }
-            let copied = i
-            i += 1
-            return { req in
-                return try self.middlewares[copied](req, try next() ?? self.router.getRoute(for: req).handler)
-            }
-        }
-        
-        return try next()?(request) ?? router.respond(to: request)
+        let response = try Helper.goingThrough(middlewares: middlewares, request: request) { try self.router.respond(to: $0) }
+        return response
     }
     
     open func stop() {
@@ -70,8 +58,11 @@ open class Server {
         stop()
     }
     
-    public func custom(_ method: String, _ path: String, handler: @escaping RouteHandler) {
-        router.routes.append(Route(method: method, path: path, handler: handler))
+    @discardableResult
+    public func custom(_ method: String, _ path: String, handler: @escaping RouteHandler) -> Route {
+        let route = Route(method: method, path: path, handler: handler)
+        router.routes.append(route)
+        return route
     }
     
     public func files(in directory: String) {
