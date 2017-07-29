@@ -71,6 +71,12 @@ open class Server {
     public func custom(_ method: String, _ path: String, handler: @escaping RouteHandler) {
         router.routes.append(Route(method: method, path: path, handler: handler))
     }
+    
+    public func files(in directory: String) {
+        self.get("{path}") {
+            return try StaticServer.serveFile(in: directory, path: $0.routeParams["path"]!)
+        }
+    }
 }
 
 private extension Socket {
