@@ -158,12 +158,52 @@ class HttpSwiftTests: XCTestCase {
         waitForExpectations()
     }
     
+    func testRouteMiddleware() {
+        let checkAuthMiddleware: MiddlewareHandler = { request, closure in
+            if request.headers["Auth"] != "12345" {
+                throw ServerError.httpRouteNotFound
+            }
+            return try closure(request)
+        }
+        
+        let congratMsg = "Congratulations!!!"
+        let addCongratHeaderMiddleware: MiddlewareHandler = { request, closure in
+            let response = try closure(request)
+            response.headers["Congrats"] = congratMsg
+            return response
+        }
+        
+        let authResponse = "AuthPassed"
+        server.get("/auth") { req in
+            return .ok(authResponse)
+        }
+            .middleware(checkAuthMiddleware)
+            .middleware(addCongratHeaderMiddleware)
+        
+        
+        let ex1 = expectation(description: "Auth route middlware fail")            
+        client.request("auth").responseString{ r in
+            XCTAssertEqual(r.response?.statusCode, 404)
+            ex1.fulfill()
+        }
+        
+        let ex2 = expectation(description: "Auth route middlware pass")
+        client.request("auth", headers: ["Auth": "12345"]).responseString { r in
+            XCTAssertEqual(r.value, authResponse)
+            XCTAssertEqual(r.response?.headers["Congrats"], congratMsg)
+            ex2.fulfill()
+        }
+        
+        waitForExpectations()
+    }
+    
     static var allTests = [
         ("testRoute", testRoute),
         ("testRequestAndResponse", testRequestAndResponse),
         ("testResponseExceptions", testResponseExceptions),
         ("testErrorHandler", testErrorHandler),
         ("testMiddleware", testMiddleware),
+        ("testRouteMiddleware", testRouteMiddleware),
         ]
     
 }
