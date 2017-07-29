@@ -197,6 +197,46 @@ class HttpSwiftTests: XCTestCase {
         waitForExpectations()
     }
     
+    func testRouteGrouping() {
+        func middleware(_ str1: String, _ str2: String? = nil) -> MiddlewareHandler{
+            let str2 = str2 ?? str1
+             return { request, closure in
+                request.headers["middleware"] = (request.headers["middleware"] ?? "") + str1
+                let response = try closure(request)
+                response.headers["middleware"] = (response.headers["middleware"] ?? "") + str2
+                return response
+            }
+        }
+        
+        server.group("api", middlewares: [middleware("hi! ", "bye!"), middleware("1")]) {
+            self.server.get("testRouteGroup") { request in
+                XCTAssertEqual(request.headers["middleware"], "hi! 13")
+                return .ok("hi")
+                }.middleware(middleware("3"))
+            
+            self.server.group("v1", middlewares: [middleware("2"), middleware("3")]) {
+                server.get("testRouteGroup") { request in
+                    XCTAssertEqual(request.headers["middleware"], "hi! 1235")
+                    return .ok("ok")
+                    }.middleware(middleware("5"))
+            }
+        }
+        
+        let ex1 = expectation(description: "testRouteGroup1")
+        client.request("api/testRouteGroup").response { r, _ in
+            XCTAssertEqual(r?.headers["middleware"], "31bye!")
+            ex1.fulfill()
+        }
+        
+        let ex2 = expectation(description: "testRouteGroup2")
+        client.request("api/v1/testRouteGroup").response { r, _ in
+            XCTAssertEqual(r?.headers["middleware"], "5321bye!")
+            ex2.fulfill()
+        }
+        
+        waitForExpectations()
+    }
+    
     static var allTests = [
         ("testRoute", testRoute),
         ("testRequestAndResponse", testRequestAndResponse),
@@ -204,6 +244,7 @@ class HttpSwiftTests: XCTestCase {
         ("testErrorHandler", testErrorHandler),
         ("testMiddleware", testMiddleware),
         ("testRouteMiddleware", testRouteMiddleware),
+        ("testRouteGrouping", testRouteGrouping),
         ]
     
 }
