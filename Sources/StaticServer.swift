@@ -66,7 +66,7 @@ class StaticServer {
 }
 
 
-private extension String {
+internal extension String {
     var expandingTildeInPath: String {
         return NSString(string: self).expandingTildeInPath
     }

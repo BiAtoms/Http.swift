@@ -17,7 +17,7 @@ open class Route {
     
     public init(method: String, path: String, handler: @escaping RouteHandler) {
         self.method = method
-        self.path = path
+        self.path = "/".appendingPathComponent(path)
         self.handler = handler
         
         self.paramNames = try! Regex.matches(path, pattern: "\\{(.+?)\\}")
