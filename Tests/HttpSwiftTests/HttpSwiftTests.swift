@@ -109,7 +109,22 @@ class HttpSwiftTests: XCTestCase {
     }
     
     func testMiddleware() {
-        server.middlewares = [Req1(), Req2(), Req3(), Res1(), Res2(), Res3()]
+        func Req(_ str: String) -> MiddlewareHandler {
+            return { request, closure in
+                request.headers["middleware"] = (request.headers["middleware"] ?? "") + str
+                return try closure(request)
+            }
+        }
+        
+        func Res(_ str: String) -> MiddlewareHandler {
+            return { request, closure in
+                let response = try closure(request)
+                response.headers["middleware"] = (response.headers["middleware"] ?? "") + str
+                return response
+            }
+        }
+        
+        server.middlewares = [Req("1"), Req("2"), Req("3"), Res("A"), Res("B"), Res("C")]
         let url = "/testMiddleware"
         server.get(url) { request in
             XCTAssertTrue(request.headers.contains(["middleware": "123"]))
@@ -126,7 +141,7 @@ class HttpSwiftTests: XCTestCase {
         waitForExpectations()
         
         //changing order
-        server.middlewares = [ Res1(), Req1(), Req2(), Req3(), Res2(), Res3()]
+        server.middlewares = [Res("A"), Req("1"), Req("2"), Req("3"), Res("B"), Res("C")]
         let url2 = "/testMiddleware2"
         server.get(url2) { request in
             XCTAssertTrue(request.headers.contains(["middleware": "123"]))
@@ -143,51 +158,6 @@ class HttpSwiftTests: XCTestCase {
         waitForExpectations()
     }
     
-    class Req1: Middleware {
-        override func handle(request: Request, closure: (Request) throws -> Response) throws -> Response {
-            request.headers["middleware"] = (request.headers["middleware"] ?? "") + "1"
-            return try closure(request)
-        }
-    }
-    
-    class Req2: Middleware {
-        override func handle(request: Request, closure: (Request) throws -> Response) throws -> Response {
-            request.headers["middleware"] = (request.headers["middleware"] ?? "") + "2"
-            return try closure(request)
-        }
-    }
-    
-    class Req3: Middleware {
-        override func handle(request: Request, closure: (Request) throws -> Response) throws -> Response {
-            request.headers["middleware"] = (request.headers["middleware"] ?? "") + "3"
-            return try closure(request)
-        }
-    }
-    
-    class Res1: Middleware {
-        override func handle(request: Request, closure: (Request) throws -> Response) throws -> Response {
-            let response = try closure(request)
-            response.headers["middleware"] = (response.headers["middleware"] ?? "") + "A"
-            return response
-        }
-    }
-    
-    class Res2: Middleware {
-        override func handle(request: Request, closure: (Request) throws -> Response) throws -> Response {
-            let response = try closure(request)
-            response.headers["middleware"] = (response.headers["middleware"] ?? "") + "B"
-            return response
-        }
-    }
-    
-    class Res3: Middleware {
-        override func handle(request: Request, closure: (Request) throws -> Response) throws -> Response {
-            let response = try closure(request)
-            response.headers["middleware"] = (response.headers["middleware"] ?? "") + "C"
-            return response
-        }
-    }
-    
     static var allTests = [
         ("testRoute", testRoute),
         ("testRequestAndResponse", testRequestAndResponse),
@@ -195,7 +165,9 @@ class HttpSwiftTests: XCTestCase {
         ("testErrorHandler", testErrorHandler),
         ("testMiddleware", testMiddleware),
         ]
+    
 }
+
 extension String: ParameterEncoding {
     public func encode(_ request: RequestSwift.Request, with parameters: Parameters?) {
         URLEncoding.queryString.encode(request, with: parameters)
