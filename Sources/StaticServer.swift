@@ -72,6 +72,14 @@ internal extension String {
     }
     
     func appendingPathComponent(_ str: String) -> String {
-        return NSString(string: self).appendingPathComponent(str)
+        let endsWith = self.hasSuffix("/")
+        let beginsWith = str.hasPrefix("/")
+        if !endsWith && !beginsWith {
+            return self + "/" + str
+        } else if (endsWith && !beginsWith) || (beginsWith && !endsWith) {
+            return self + str
+        }
+        
+        return self.substring(to: self.index(before: self.endIndex)) + str
     }
 }
