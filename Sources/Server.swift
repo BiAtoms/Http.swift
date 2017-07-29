@@ -60,9 +60,13 @@ open class Server {
     
     @discardableResult
     public func custom(_ method: String, _ path: String, handler: @escaping RouteHandler) -> Route {
-        let route = Route(method: method, path: path, handler: handler)
-        router.routes.append(route)
+        var route = Route(method: method, path: path, handler: handler)
+        router.add(&route)
         return route
+    }
+    
+    public func group(_ prefix: String, middlewares: [MiddlewareHandler] = [],  code: () -> Void) {
+        router.group(prefix, middlewares: middlewares, code: code)
     }
     
     public func files(in directory: String) {

@@ -23,4 +23,23 @@ open class Router {
         }
         throw ServerError.httpRouteNotFound
     }
+    
+    open var prefix: String = ""
+    open var middlewares: [MiddlewareHandler] = []
+    
+    open func add(_ route: inout Route) {
+        let middlewares = self.middlewares + route.middlewares
+        route = Route(method: route.method, path: prefix.appendingPathComponent(route.path), handler: route.handler)
+        route.middlewares = middlewares
+        routes.append(route)
+    }
+    
+    open func group(_ prefix: String, middlewares: [MiddlewareHandler] = [],  code: () -> Void) {
+        let prev = self.prefix
+        self.prefix = self.prefix.appendingPathComponent(prefix)
+        self.middlewares.append(contentsOf: middlewares)
+        code()
+        self.middlewares.removeLast(middlewares.count)
+        self.prefix = prev
+    }
 }
