@@ -64,6 +64,10 @@ extension String {
     static var contentLength: String {
         return "Content-Length"
     }
+    
+    static var contentType: String {
+        return "Content-Type"
+    }
 }
 
 

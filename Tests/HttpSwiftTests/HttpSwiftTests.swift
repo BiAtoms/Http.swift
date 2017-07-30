@@ -237,6 +237,22 @@ class HttpSwiftTests: XCTestCase {
         waitForExpectations()
     }
     
+    func testJson() {
+        server.get("testJson") { _ in
+            return .json(["hi": ["I": ["am": ["json": ["array": [1,2,3,4]]]]]], status: .ok, options: [])
+        }
+        
+        let ex = expectation(description: "testJson")
+        client.request("/testJson").responseString { r in
+            XCTAssertEqual(r.response?.statusCode, 200)
+            XCTAssertEqual(r.response?.headers["Content-Type"], "application/json")
+            XCTAssertEqual(r.value, "{\"hi\":{\"I\":{\"am\":{\"json\":{\"array\":[1,2,3,4]}}}}}")
+            ex.fulfill()
+        }
+        
+        waitForExpectations()
+    }
+    
     static var allTests = [
         ("testRoute", testRoute),
         ("testRequestAndResponse", testRequestAndResponse),
@@ -245,6 +261,7 @@ class HttpSwiftTests: XCTestCase {
         ("testMiddleware", testMiddleware),
         ("testRouteMiddleware", testRouteMiddleware),
         ("testRouteGrouping", testRouteGrouping),
+        ("testJson", testJson),
         ]
     
 }

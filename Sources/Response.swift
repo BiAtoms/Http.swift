@@ -5,6 +5,8 @@
 //  Created by Orkhan Alikhanov on 7/4/17.
 //  Copyright © 2017 BiAtoms. All rights reserved.
 //
+import Foundation
+
 public typealias Byte = UInt8
 open class Response {
     open var status: Status
@@ -51,5 +53,14 @@ extension Response {
     
     class func ok(_ body: String, headers: HeaderDictionary = [:]) -> Self {
         return self.init(.ok, body: body.bytes, headers: headers)
+    }
+    
+    class func json(_ object: Any, status: Response.Status = .ok, options: JSONSerialization.WritingOptions = .prettyPrinted) -> Response {
+        var response = Response.ok("Could not serialize into json")
+        if JSONSerialization.isValidJSONObject(object) {
+            let data = try! JSONSerialization.data(withJSONObject: object, options: options)
+            response = Response(status, body: Array(data), headers: [.contentType: "application/json"])
+        }
+        return response
     }
 }
