@@ -47,15 +47,15 @@ open class Response {
 
 
 extension Response {
-    convenience init(_ status: Status, body: String, headers: HeaderDictionary = [:]) {
+    public convenience init(_ status: Status, body: String, headers: HeaderDictionary = [:]) {
         self.init(status, body: body.bytes, headers: headers)
     }
     
-    class func ok(_ body: String, headers: HeaderDictionary = [:]) -> Self {
+    open class func ok(_ body: String, headers: HeaderDictionary = [:]) -> Self {
         return self.init(.ok, body: body.bytes, headers: headers)
     }
     
-    class func json(_ object: Any, status: Response.Status = .ok, options: JSONSerialization.WritingOptions = .prettyPrinted) -> Response {
+    open class func json(_ object: Any, status: Response.Status = .ok, options: JSONSerialization.WritingOptions = .prettyPrinted) -> Response {
         var response = Response.ok("Could not serialize into json")
         if JSONSerialization.isValidJSONObject(object) {
             let data = try! JSONSerialization.data(withJSONObject: object, options: options)
