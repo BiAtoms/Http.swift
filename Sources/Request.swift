@@ -34,7 +34,7 @@ open class Request {
     
     public init(method: String, fullPath: String, version: String, headers: HeaderDictionary, body: [Byte]) {
         self.method = method
-        self.fullPath = fullPath
+        self.fullPath = fullPath.trimmedRoute
         self.version = version
         self.headers = headers
         self.body = body
@@ -49,13 +49,14 @@ open class Request {
         if params.count > 0 {
             if params.count != route.paramNames.count { // this should not happen actually
                 return false
-            }            
+            }
             zip(route.paramNames, params).forEach {
                 routeParams[$0] = Url.unescape($1)
             }
             
             return true
         }
+        
         return self.path == route.path
     }
 }
@@ -69,5 +70,3 @@ extension String {
         return "Content-Type"
     }
 }
-
-

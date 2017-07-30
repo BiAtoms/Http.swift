@@ -17,7 +17,8 @@ open class Route {
     
     public init(method: String, path: String, handler: @escaping RouteHandler) {
         self.method = method
-        self.path = "/".appendingPathComponent(path)
+        let path = path.trimmedRoute
+        self.path = path
         self.handler = handler
         
         self.paramNames = try! Regex.matches(path, pattern: "\\{(.+?)\\}")
@@ -34,5 +35,17 @@ open class Route {
     open func middleware(_ handler: @escaping MiddlewareHandler) -> Route {
         self.middlewares.append(handler)
         return self
+    }
+}
+
+extension CharacterSet {
+    static var slashes: CharacterSet {
+        return CharacterSet.init(charactersIn: "/")
+    }
+}
+
+extension String {
+    var trimmedRoute: String {
+        return "/".appendingPathComponent(self.trimmingCharacters(in: .slashes))
     }
 }
