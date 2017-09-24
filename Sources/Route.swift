@@ -6,6 +6,8 @@
 //  Copyright © 2017 BiAtoms. All rights reserved.
 //
 
+import Foundation
+
 public typealias RouteHandler = (Request) throws -> Response
 open class Route {
     open let method: String
