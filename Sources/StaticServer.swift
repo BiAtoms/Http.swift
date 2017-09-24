@@ -80,6 +80,6 @@ internal extension String {
             return self + str
         }
         
-        return self.substring(to: self.index(before: self.endIndex)) + str
+        return self[..<self.index(before: self.endIndex)] + str
     }
 }
