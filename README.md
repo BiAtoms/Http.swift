@@ -1,6 +1,8 @@
 [![Platform Linux](https://img.shields.io/badge/platform-Linux-green.svg)](#)
 [![Platform](https://img.shields.io/cocoapods/p/Http.swift.svg?style=flat)](https://github.com/BiAtoms/Http.swift)
 [![Cocoapods Compatible](https://img.shields.io/cocoapods/v/Http.swift.svg)](https://cocoapods.org/pods/Http.swift)
+[![Build Status - Master](https://travis-ci.org/BiAtoms/Http.swift.svg?branch=master)](https://travis-ci.org/BiAtoms/Http.swift)
+
 
 # Http.swift
 
