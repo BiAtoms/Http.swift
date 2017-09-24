@@ -21,17 +21,9 @@ open class Regex {
         let string = NSString(string: string) //for NSString.substring
         results.forEach { result in
             (1..<result.numberOfRanges).forEach {
-                matches.append(string.substring(with: result.rangeAt($0)))
+                matches.append(string.substring(with: result.range(at: $0)))
             }
         }
         return matches
     }
 }
-
-#if os(Linux)
-    internal extension TextCheckingResult {
-        internal func rangeAt(_ idx: Int) -> NSRange {
-            return self.range(at: idx)
-        }
-    }
-#endif

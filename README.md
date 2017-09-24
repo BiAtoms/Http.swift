@@ -41,7 +41,7 @@ To integrate Http.swift into your Xcode project using CocoaPods, specify it in y
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
 target '<Your Target Name>' do
-    pod 'Http.swift' ~> '1.3'
+    pod 'Http.swift', '~> 2.0'
 end
 ```
 
@@ -62,7 +62,7 @@ import PackageDescription
 let package = Package(
     name: "MyServer",
     dependencies: [
-        .Package(url: "https://github.com/BiAtoms/Http.swift.git", majorVersion: 1)
+        .Package(url: "https://github.com/BiAtoms/Http.swift.git", majorVersion: 2)
     ]
 )
 ```

@@ -6,11 +6,11 @@ target 'HttpSwift' do
   use_frameworks!
 
   # Pods for HttpSwift
-    pod 'Socket.swift', '~> 1.3'
+    pod 'Socket.swift', '~> 2.0'
     
   target 'HttpSwiftTests' do
     inherit! :search_paths
-    pod 'Request.swift', '~> 1.1'
+    pod 'Request.swift', '~> 2.0'
   end
 end
 
