@@ -27,14 +27,14 @@ open class Response {
             self.code = code
             self.reason = reason
         }
-        static func custom(_ code: Int, _ reason: String = "") -> Status {
+        public static func custom(_ code: Int, _ reason: String = "") -> Status {
             return Status(code, reason)
         }
         
-        static let ok = Status(200, "OK")
-        static let internalServerError = Status(500, "Internal Server Error")
-        static let httpVersionNotSupported = Status(505, "HTTP Version Not Supported")
-        static let notFound = Status(404, "Not Found")
+        public static let ok = Status(200, "OK")
+        public static let internalServerError = Status(500, "Internal Server Error")
+        public static let httpVersionNotSupported = Status(505, "HTTP Version Not Supported")
+        public static let notFound = Status(404, "Not Found")
     }
     
     internal func prepareHeaders() {
