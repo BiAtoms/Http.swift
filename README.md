@@ -9,6 +9,7 @@
 A tiny HTTP server engine written in swift.
 
 ## Features
+* SSL/TLS support
 * Error handling
 * Global middlewares
 * Route middlewares
@@ -25,7 +26,7 @@ server.get("/hello/{id}") { request in
     return .ok(request.routeParams["id"]!) 
 }
 
-server.run() //go to http://localhost:8080/hello/1?state=active in the browser
+try server.run() //go to http://localhost:8080/hello/1?state=active in the browser
 ```
 
 ## Installation
@@ -43,7 +44,7 @@ To integrate Http.swift into your Xcode project using CocoaPods, specify it in y
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
 target '<Your Target Name>' do
-    pod 'Http.swift', '~> 2.0'
+    pod 'Http.swift', '~> 2.1'
 end
 ```
 

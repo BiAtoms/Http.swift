@@ -20,15 +20,34 @@ class HttpSwiftTests: XCTestCase {
     struct a {
         static let server: Server = {
             let server = Server()
-            server.run()
+            try! server.run()
             return server
         }()
+        
+        static let secureServer: Server = {
+            let server = Server()
+            #if os(Linux)
+                let rootPath = URL(string: #file)!.appendingPathComponent("../Http.swift")
+                let path = rootPath.appendingPathExtension("csr")
+                let keyPath = rootPath.appendingPathExtension("key")
+                let certPath = (path, keyPath, nil as String?)
+            #else
+                let path = Bundle(for: HttpSwiftTests.self).url(forResource: "Http.swift", withExtension: "pfx")!
+                let certPath = (path, "orkhan1234")
+            #endif
+            try! server.run(port: 4443, certifiatePath: certPath)
+            return server
+        }()
+        
         static let client = Client(baseUrl: "http://localhost:8080")
     }
     
     var port = Port(8080)
     var server: Server {
         return a.server
+    }
+    var secureServer: Server {
+        return a.secureServer
     }
     var client: Client {
         return a.client
@@ -251,6 +270,20 @@ class HttpSwiftTests: XCTestCase {
         }
         
         waitForExpectations()
+    }
+    
+    func testSSL() {
+        secureServer.get("/") { _ in
+            return .ok("Securely connected")
+        }
+
+        let socket = try! Socket(.inet)
+        try! socket.connect(port: 4443)
+        try! socket.startTls(.init(peer: "www.biatoms.com", allowSelfSigned: true))
+        try! socket.write("GET / HTTP/1.0\r\n\r\n".bytes)
+        
+        while let _ = try? socket.readLine() { } // ignore upto body
+        XCTAssertEqual(try? socket.readLine(), "Securely connected")
     }
     
     static var allTests = [
