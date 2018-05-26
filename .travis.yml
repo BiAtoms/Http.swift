@@ -14,23 +14,23 @@ matrix:
       script: env LD_LIBRARY_PATH='/usr/local/lib:/usr/local/opt/libressl/lib:$LD_LIBRARY_PATH' swift test
       
     - os: osx
-      osx_image: xcode9
+      osx_image: xcode9.3
       dist: trusty
       sudo: required
       env: COCOAPODS_DISABLE_STATS=true ACTION=test  PLATFORM=Mac     DESTINATION='platform=OS X'
       script: set -o pipefail && pod install --repo-update && xcodebuild -workspace HttpSwift.xcworkspace -scheme HttpSwift -destination "$DESTINATION" $ACTION | xcpretty
 
     - os: osx
-      osx_image: xcode9
+      osx_image: xcode9.3
       dist: trusty
       sudo: required
       env: COCOAPODS_DISABLE_STATS=true ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator,name=iPhone 6S'
       script: set -o pipefail && pod install --repo-update && xcodebuild -workspace HttpSwift.xcworkspace -scheme HttpSwift -destination "$DESTINATION" $ACTION | xcpretty
 
     - os: osx
-      osx_image: xcode9
+      osx_image: xcode9.3
       dist: trusty
       sudo: required
-      env: COCOAPODS_DISABLE_STATS=true ACTION=test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p'
+      env: COCOAPODS_DISABLE_STATS=true ACTION=test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV'
       script: set -o pipefail && pod install --repo-update && xcodebuild -workspace HttpSwift.xcworkspace -scheme HttpSwift -destination "$DESTINATION" $ACTION | xcpretty
 

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Http.swift'
-    s.version          = '2.1.0'
+    s.version          = '2.1.1'
     s.summary          = 'A tiny http server engine written in swift.'
     s.homepage         = 'https://github.com/BiAtoms/Http.swift'
     s.license          = { :type => 'MIT', :file => 'LICENSE' }
