@@ -48,7 +48,7 @@ open class RequestParser {
     internal func parseRequestLine() throws -> (method: String, fullPath: String, version: String) {
         let requestLine = try socket.readLine()
         let parts = requestLine.split(" ", maxSplits: 2)
-        return (parts[0], parts[1], String(parts[2].characters.dropFirst("HTTP/".characters.count)) )
+        return (parts[0], parts[1], String(parts[2].dropFirst("HTTP/".count)))
     }
     
     internal func parseHeaders() -> HeaderDictionary {
@@ -70,6 +70,6 @@ open class RequestParser {
 
 internal extension String {
     func split(_ separator: Character, maxSplits: Int = Int.max, omittingEmptySubsequences: Bool = true) -> [String] {
-        return self.characters.split(separator: separator, maxSplits: maxSplits, omittingEmptySubsequences: omittingEmptySubsequences).map(String.init)
+        return split(separator: separator, maxSplits: maxSplits, omittingEmptySubsequences: omittingEmptySubsequences).map(String.init)
     }
 }

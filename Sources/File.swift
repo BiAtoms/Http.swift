@@ -35,7 +35,7 @@ open class File {
         return []
     }
 }
-#if os(Linux)
+#if os(Linux) && !swift(>=4.1)
     private extension ObjCBool {
         var boolValue: Bool {
             return self
