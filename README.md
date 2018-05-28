@@ -1,6 +1,8 @@
-[![Platform Linux](https://img.shields.io/badge/platform-Linux-green.svg)](#)
+[![Platform Linux](https://img.shields.io/badge/platform-linux-brightgreen.svg)](#)
 [![Platform](https://img.shields.io/cocoapods/p/Http.swift.svg?style=flat)](https://github.com/BiAtoms/Http.swift)
 [![Cocoapods Compatible](https://img.shields.io/cocoapods/v/Http.swift.svg)](https://cocoapods.org/pods/Http.swift)
+[![Carthage Compatible](https://img.shields.io/badge/carthage-compatible-brightgreen.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![License](https://img.shields.io/github/license/BiAtoms/Http.swift.svg)](https://github.com/BiAtoms/Http.swift/blob/master/LICENSE)
 [![Build Status - Master](https://travis-ci.org/BiAtoms/Http.swift.svg?branch=master)](https://travis-ci.org/BiAtoms/Http.swift)
 
 
@@ -20,6 +22,8 @@ A tiny HTTP server engine written in swift.
 * Works in Linux, iOS, macOS and tvOS
 
 ```swift
+import HttpSwift
+// ...
 let server = Server()
 server.get("/hello/{id}") { request in
     print(request.queryParams["state"])
@@ -53,6 +57,26 @@ Then, run the following command:
 ```bash
 $ pod install
 ```
+
+### Carthage
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
+
+```bash
+$ brew update
+$ brew install carthage
+```
+
+To integrate Http.swift into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```ogdl
+github "BiAtoms/Http.swift" ~> 2.1
+```
+
+Run `carthage update` to build the framework and drag the built `HttpSwift.framework` into your Xcode project.
+
 ### Swift Package Manager
 
 The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler. It is in early development, but Http.swift does support its use on supported platforms. 
@@ -60,14 +84,9 @@ The [Swift Package Manager](https://swift.org/package-manager/) is a tool for au
 Once you have your Swift package set up, adding Http.swift as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
 
 ```swift
-import PackageDescription
-
-let package = Package(
-    name: "MyServer",
-    dependencies: [
-        .Package(url: "https://github.com/BiAtoms/Http.swift.git", majorVersion: 2)
-    ]
-)
+dependencies: [
+    .package(url: "https://github.com/BiAtoms/Http.swift.git", from: "2.0.0")
+]
 ```
 
 ## Authors
@@ -78,4 +97,4 @@ See also the list of [contributors](https://github.com/BiAtoms/Http.swift/contri
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/BiAtoms/Http.swift/blob/master/LICENSE) file for details
