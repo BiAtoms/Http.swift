@@ -17,20 +17,20 @@ matrix:
       osx_image: xcode9.3
       dist: trusty
       sudo: required
-      env: COCOAPODS_DISABLE_STATS=true ACTION=test  PLATFORM=Mac     DESTINATION='platform=OS X'
-      script: set -o pipefail && pod install --repo-update && xcodebuild -workspace HttpSwift.xcworkspace -scheme HttpSwift -destination "$DESTINATION" $ACTION | xcpretty
+      env: ACTION=test  PLATFORM=Mac     DESTINATION='platform=OS X'
+      script: set -o pipefail && xcodebuild -project HttpSwift.xcodeproj -scheme HttpSwift -destination "$DESTINATION" $ACTION | xcpretty
 
     - os: osx
       osx_image: xcode9.3
       dist: trusty
       sudo: required
-      env: COCOAPODS_DISABLE_STATS=true ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator,name=iPhone 6S'
-      script: set -o pipefail && pod install --repo-update && xcodebuild -workspace HttpSwift.xcworkspace -scheme HttpSwift -destination "$DESTINATION" $ACTION | xcpretty
+      env: ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator,name=iPhone 6S'
+      script: set -o pipefail && xcodebuild -project HttpSwift.xcodeproj -scheme HttpSwift -destination "$DESTINATION" $ACTION | xcpretty
 
     - os: osx
       osx_image: xcode9.3
       dist: trusty
       sudo: required
-      env: COCOAPODS_DISABLE_STATS=true ACTION=test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV'
-      script: set -o pipefail && pod install --repo-update && xcodebuild -workspace HttpSwift.xcworkspace -scheme HttpSwift -destination "$DESTINATION" $ACTION | xcpretty
+      env: ACTION=test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV'
+      script: set -o pipefail && xcodebuild -project HttpSwift.xcodeproj -scheme HttpSwift -destination "$DESTINATION" $ACTION | xcpretty
 

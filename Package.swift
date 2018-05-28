@@ -17,7 +17,8 @@ let package = Package(
         .target(
             name: "HttpSwift",
             dependencies: ["SocketSwift"],
-            path: "Sources"),
+            path: "Sources",
+            exclude: ["Frameworks"]),
         .testTarget(
             name: "HttpSwiftTests",
             dependencies: ["HttpSwift", "RequestSwift"]),

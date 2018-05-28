@@ -1,0 +1,6 @@
+[submodule "Sources/Frameworks/RequestSwift"]
+	path = Sources/Frameworks/RequestSwift
+	url = https://github.com/BiAtoms/Request.swift
+[submodule "Sources/Frameworks/SocketSwift"]
+	path = Sources/Frameworks/SocketSwift
+	url = https://github.com/BiAtoms/Socket.swift
