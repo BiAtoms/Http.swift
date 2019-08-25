@@ -40,7 +40,7 @@ open class Server {
             }
         socket = try Socket.tcpListening(port: port, address: address)
         queue.async { [weak self] in
-            guard let self = self else {return}
+            guard let `self` = self else { return }
             while let client = try? self.socket.accept() {
                 self.handleConnection(client)
                 client.close()
