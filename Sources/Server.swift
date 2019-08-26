@@ -39,7 +39,8 @@ open class Server {
                 tlsConfig = TLS.Configuration(certificate: cert)
             }
         socket = try Socket.tcpListening(port: port, address: address)
-        queue.async {
+        queue.async { [weak self] in
+            guard let `self` = self else { return }
             while let client = try? self.socket.accept() {
                 self.handleConnection(client)
                 client.close()
