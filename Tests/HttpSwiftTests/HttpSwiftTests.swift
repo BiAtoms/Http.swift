@@ -286,6 +286,37 @@ class HttpSwiftTests: XCTestCase {
         XCTAssertEqual(try? socket.readLine(), "Securely connected")
     }
     
+    func testReplaceExistingRoute() {
+        let firstResponseString = "FirstResponseString"
+        let secondResponseString = "SecondResponseString"
+        
+        server.get("/hello/{id}/{name}/next/{part}") { request in
+            return .ok(firstResponseString)
+        }
+        
+        let ex1 = expectation(description: "testResponseForOldRoute")
+        client.request("/hello/23/hi/next/second", method: .get)
+            .responseString { r in
+                XCTAssertEqual(r.value, firstResponseString)
+                ex1.fulfill()
+        }
+        
+        waitForExpectations()
+        
+        server.get("/hello/{id}/{name}/next/{part}") { request in
+            return .ok(secondResponseString)
+        }
+        
+        let ex2 = expectation(description: "testResponseForNewRoute")
+        client.request("/hello/23/hi/next/second", method: .get)
+            .responseString { r in
+                XCTAssertEqual(r.value, secondResponseString)
+                ex2.fulfill()
+        }
+        
+        waitForExpectations()
+    }
+    
     static var allTests = [
         ("testRoute", testRoute),
         ("testRequestAndResponse", testRequestAndResponse),
