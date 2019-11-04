@@ -290,30 +290,54 @@ class HttpSwiftTests: XCTestCase {
         let firstResponseString = "FirstResponseString"
         let secondResponseString = "SecondResponseString"
         
+        // GET Request
         server.get("/hello/{id}/{name}/next/{part}") { request in
             return .ok(firstResponseString)
         }
         
-        let ex1 = expectation(description: "testResponseForOldRoute")
+        // GET Request
+        server.post("/hello/{id}/{name}/next/{part}") { request in
+            return .ok(firstResponseString)
+        }
+        
+        // Test for GET request
+        let ex1 = expectation(description: "testResponseForOldGETRoute")
         client.request("/hello/23/hi/next/second", method: .get)
             .responseString { r in
                 XCTAssertEqual(r.value, firstResponseString)
                 ex1.fulfill()
         }
-        
         waitForExpectations()
         
+        // Test for POST Reqquest
+        let ex2 = expectation(description: "testResponseForPOSTRoute")
+        client.request("/hello/23/hi/next/second", method: .post)
+            .responseString { r in
+                XCTAssertEqual(r.value, firstResponseString)
+                ex2.fulfill()
+        }
+        waitForExpectations()
+        
+        // Replace old GET request
         server.get("/hello/{id}/{name}/next/{part}") { request in
             return .ok(secondResponseString)
         }
         
-        let ex2 = expectation(description: "testResponseForNewRoute")
+        let ex3 = expectation(description: "testResponseForNewGETRoute")
         client.request("/hello/23/hi/next/second", method: .get)
             .responseString { r in
                 XCTAssertEqual(r.value, secondResponseString)
-                ex2.fulfill()
+                ex3.fulfill()
         }
+        waitForExpectations()
         
+        // Test for POST Reqquest
+        let ex4 = expectation(description: "testResponseForPOSTRoute")
+        client.request("/hello/23/hi/next/second", method: .post)
+            .responseString { r in
+                XCTAssertEqual(r.value, firstResponseString)
+                ex4.fulfill()
+        }
         waitForExpectations()
     }
     
