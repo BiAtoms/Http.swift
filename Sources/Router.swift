@@ -31,7 +31,7 @@ open class Router {
     
     open func add(_ route: inout Route) {
         let path = prefix.appendingPathComponent(route.path)
-        routes.removeAll { $0.path == path }
+        removeRouteHasPath(path)
         
         let middlewares = self.middlewares + route.middlewares
         route = Route(method: route.method, path: path, handler: route.handler)
@@ -46,5 +46,13 @@ open class Router {
         code()
         self.middlewares.removeLast(middlewares.count)
         self.prefix = prev
+    }
+    
+    private func removeRouteHasPath(_ path: String) {
+        #if swift(>=4.2)
+        routes.removeAll { $0.path == path }
+        #else
+        routes = routes.filter { $0.path != path}
+        #endif
     }
 }

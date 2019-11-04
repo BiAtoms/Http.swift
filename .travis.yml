@@ -24,7 +24,7 @@ matrix:
       osx_image: xcode11.2
       dist: trusty
       sudo: required
-      env: ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator,name=iPhone 6S'
+      env: ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator,name=iPhone 11'
       script: set -o pipefail && xcodebuild -project HttpSwift.xcodeproj -scheme HttpSwift -destination "$DESTINATION" $ACTION | xcpretty
 
     - os: osx
