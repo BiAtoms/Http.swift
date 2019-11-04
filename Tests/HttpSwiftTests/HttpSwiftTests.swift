@@ -288,7 +288,7 @@ class HttpSwiftTests: XCTestCase {
     
     func testReplaceExistingRoute() {
         let firstResponseString = "FirstResponseString"
-        let secondResponseString = "FirstResponseString"
+        let secondResponseString = "SecondResponseString"
         
         server.get("/hello/{id}/{name}/next/{part}") { request in
             return .ok(firstResponseString)
@@ -300,6 +300,8 @@ class HttpSwiftTests: XCTestCase {
                 XCTAssertEqual(r.value, firstResponseString)
                 ex1.fulfill()
         }
+        
+        waitForExpectations()
         
         server.get("/hello/{id}/{name}/next/{part}") { request in
             return .ok(secondResponseString)

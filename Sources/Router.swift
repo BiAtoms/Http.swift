@@ -31,7 +31,7 @@ open class Router {
     
     open func add(_ route: inout Route) {
         let path = prefix.appendingPathComponent(route.path)
-        routes.removeAll{ $0.path == path }
+        routes.removeAll { $0.path == path }
         
         let middlewares = self.middlewares + route.middlewares
         route = Route(method: route.method, path: path, handler: route.handler)
