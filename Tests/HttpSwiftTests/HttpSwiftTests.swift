@@ -57,8 +57,39 @@ class HttpSwiftTests: XCTestCase {
         let route = Route(method: "", path: "/api/{param1}/{param2}/next/{param3}", handler: {_ in return Response(.ok, body: [])})
         XCTAssertEqual(route.paramNames, ["param1", "param2", "param3"])
         
-        let pattern = "(.+)\\/?"
-        XCTAssertEqual(route.regexPattern, "\\/api\\/\(pattern)\\/\(pattern)\\/next\\/\(pattern)")
+        let pattern = "([^\\/]+)\\/?"
+        XCTAssertEqual(route.regexPattern, "\\/api\\/\(pattern)\\/\(pattern)\\/next\\/\(pattern)$")
+    }
+    
+    /// See issue 16, https://github.com/BiAtoms/Http.swift/issues/16
+    func testRoute2() {
+        let firstResponseString = "Doctor profile"
+        let secondResponseString = "Doctor feedback"
+        
+        // Doctor profile
+        server.get("/doctors/{id}/") { request in
+            return .ok(firstResponseString)
+        }
+        
+        // Doctor feedbacks
+        server.get("/doctors/{id}/feedbacks") { request in
+            return .ok(secondResponseString)
+        }
+        
+        let ex1 = expectation(description: "test")
+        client.request("/doctors/{id}", method: .get)
+            .responseString { r in
+                XCTAssertEqual(r.value, firstResponseString)
+                ex1.fulfill()
+        }
+        
+        let ex2 = expectation(description: "test2")
+        client.request("/doctors/{id}/feedbacks", method: .get)
+            .responseString { r in
+                XCTAssertEqual(r.value, secondResponseString)
+                ex2.fulfill()
+        }
+        waitForExpectations()
     }
     
     func testRequestAndResponse() {

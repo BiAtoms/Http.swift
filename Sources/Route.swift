@@ -24,7 +24,7 @@ open class Route {
         self.handler = handler
         
         self.paramNames = try! Regex.matches(path, pattern: "\\{(.+?)\\}")
-        self.regexPattern = try! Regex.replace(path, pattern: "\\{.+?\\}", with: "\\(\\.\\+\\)\\/\\?").replacingOccurrences(of: "/", with: "\\/")
+        self.regexPattern = try! Regex.replace(path, pattern: "\\{.+?\\}", with: "\\([^/]+\\)\\/\\?").replacingOccurrences(of: "/", with: "\\/") + "$"
         
     }
     
