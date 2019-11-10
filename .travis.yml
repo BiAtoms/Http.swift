@@ -18,4 +18,4 @@ matrix:
       osx_image: xcode11.2
       dist: trusty
       sudo: required
-      script: set -o pipefail && xcodebuild -scheme RequestSwift -destination "platform=OS X" test | xcpretty && xcodebuild -scheme RequestSwift -destination "platform=iOS Simulator,name=iPhone 11" test | xcpretty && xcodebuild -scheme RequestSwift -destination "platform=tvOS Simulator,name=Apple TV" test | xcpretty
+      script: set -o pipefail && xcodebuild -scheme HttpSwift -destination "platform=OS X" test | xcpretty && xcodebuild -scheme HttpSwift -destination "platform=iOS Simulator,name=iPhone 11" test | xcpretty && xcodebuild -scheme HttpSwift -destination "platform=tvOS Simulator,name=Apple TV" test | xcpretty
