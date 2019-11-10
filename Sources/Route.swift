@@ -10,11 +10,11 @@ import Foundation
 
 public typealias RouteHandler = (Request) throws -> Response
 open class Route {
-    open let method: String
-    open let path: String
-    open let paramNames: [String]
-    open let regexPattern: String
-    open let handler: RouteHandler
+    public let method: String
+    public let path: String
+    public let paramNames: [String]
+    public let regexPattern: String
+    public let handler: RouteHandler
     open var middlewares: [MiddlewareHandler] = []
     
     public init(method: String, path: String, handler: @escaping RouteHandler) {

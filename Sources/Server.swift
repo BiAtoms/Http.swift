@@ -13,7 +13,7 @@ import SocketSwift
 
 public typealias MiddlewareHandler = (_ request: Request, _ closure: RouteHandler) throws -> Response
 open class Server {
-    open let queue = DispatchQueue(label: "com.biatoms.server-swift." + UUID().uuidString)
+    public let queue = DispatchQueue(label: "com.biatoms.server-swift." + UUID().uuidString)
     open var router = Router()
     open var socket: Socket!
     open var errorHandler: ErrorHandler.Type = ErrorHandler.self

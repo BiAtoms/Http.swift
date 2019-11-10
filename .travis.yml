@@ -10,27 +10,12 @@ matrix:
             - sourceline: 'deb [trusted=yes] http://apt.orkhanalikhanov.com ./'
           packages:
             - libressl
-      install: eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
+      env: SWIFT_VERSION=5.0
+      install: eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
       script: env LD_LIBRARY_PATH='/usr/local/lib:/usr/local/opt/libressl/lib:$LD_LIBRARY_PATH' swift test
       
     - os: osx
       osx_image: xcode11.2
       dist: trusty
       sudo: required
-      env: ACTION=test  PLATFORM=Mac     DESTINATION='platform=OS X'
-      script: set -o pipefail && xcodebuild -project HttpSwift.xcodeproj -scheme HttpSwift -destination "$DESTINATION" $ACTION | xcpretty
-
-    - os: osx
-      osx_image: xcode11.2
-      dist: trusty
-      sudo: required
-      env: ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator,name=iPhone 11'
-      script: set -o pipefail && xcodebuild -project HttpSwift.xcodeproj -scheme HttpSwift -destination "$DESTINATION" $ACTION | xcpretty
-
-    - os: osx
-      osx_image: xcode11.2
-      dist: trusty
-      sudo: required
-      env: ACTION=test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV'
-      script: set -o pipefail && xcodebuild -project HttpSwift.xcodeproj -scheme HttpSwift -destination "$DESTINATION" $ACTION | xcpretty
-
+      script: set -o pipefail && xcodebuild -scheme RequestSwift -destination "platform=OS X" test | xcpretty && xcodebuild -scheme RequestSwift -destination "platform=iOS Simulator,name=iPhone 11" test | xcpretty && xcodebuild -scheme RequestSwift -destination "platform=tvOS Simulator,name=Apple TV" test | xcpretty

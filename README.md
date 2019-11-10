@@ -48,7 +48,7 @@ To integrate Http.swift into your Xcode project using CocoaPods, specify it in y
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
 target '<Your Target Name>' do
-    pod 'Http.swift', '~> 2.1'
+  pod 'Http.swift', '~> 2.2.0'
 end
 ```
 
@@ -72,7 +72,7 @@ $ brew install carthage
 To integrate Http.swift into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "BiAtoms/Http.swift" ~> 2.1
+github "BiAtoms/Http.swift" ~> 2.2.0
 ```
 
 Run `carthage update` to build the framework and drag the built `HttpSwift.framework` into your Xcode project.
@@ -85,7 +85,7 @@ Once you have your Swift package set up, adding Http.swift as a dependency is as
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/BiAtoms/Http.swift.git", from: "2.0.0")
+    .package(url: "https://github.com/BiAtoms/Http.swift.git", from: "2.2.0")
 ]
 ```
 

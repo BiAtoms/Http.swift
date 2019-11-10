@@ -32,7 +32,7 @@ class HttpSwiftTests: XCTestCase {
                 let keyPath = rootPath.appendingPathExtension("key")
                 let certPath = (path, keyPath, nil as String?)
             #else
-                let path = Bundle(for: HttpSwiftTests.self).url(forResource: "Http.swift", withExtension: "pfx")!
+            let path = Bundle(for: HttpSwiftTests.self).url(forResource: "Http.swift", withExtension: "pfx") ?? URL(string: NSString(string: URL(string: #file)!.appendingPathComponent("../../Http.swift.pfx").absoluteString).standardizingPath)!
                 let certPath = (path, "orkhan1234")
             #endif
             try! server.run(port: 4443, certifiatePath: certPath)
