@@ -374,6 +374,7 @@ class HttpSwiftTests: XCTestCase {
     
     static var allTests = [
         ("testRoute", testRoute),
+        ("testRoute2", testRoute2),
         ("testRequestAndResponse", testRequestAndResponse),
         ("testResponseExceptions", testResponseExceptions),
         ("testErrorHandler", testErrorHandler),
@@ -381,7 +382,9 @@ class HttpSwiftTests: XCTestCase {
         ("testRouteMiddleware", testRouteMiddleware),
         ("testRouteGrouping", testRouteGrouping),
         ("testJson", testJson),
-        ]
+        ("testJson", testSSL),
+        ("testReplaceExistingRoute", testReplaceExistingRoute),
+    ]
     
 }
 
